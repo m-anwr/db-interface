@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Drivers</h1>
+<a href="{{ url_for('new_driver') }}" class="btn btn-default">Add New Driver</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>National ID</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Username</th>
+		</tr>
+	</thead>
+	<tbody>
+    {% for d in drivers %}
+		<tr>
+      <td>{{ d.data['national_id'] }}</td>
+      <td>{{ d.data['first_name'] }}</td>
+      <td>{{ d.data['last_name'] }}</td>
+      <td>{{ d.data['username'] }}</td>
+		</tr>
+    {% endfor %}
+	</tbody>
+</table>
+<a href="{{ url_for('new_driver') }}" class="btn btn-default">Add New Driver</a>
+{% endblock %}

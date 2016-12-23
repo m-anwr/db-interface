@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Example row of columns -->
+<div class="row">
+  <div class="col-md-4">
+    <h2>Streets</h2>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Traffic Lights</h2>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Intersections</h2>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Drivers</h2>
+    <p><a class="btn btn-default" href="{{ url_for(drivers) }}" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Emergency Vehicles</h2>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+</div>
+{% endblock %}
