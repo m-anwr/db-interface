@@ -1,0 +1,10 @@
+Python version: 3.3+
+
+Installation Steps:
+  - Install pip
+  - Install virtualenv using `sudo pip install virtualenv`
+  - Clone the repo
+  - Inside the repo do `virtualenv ENV`
+  - Activate the virtual environment by doing `. ENV/bin/activate`
+  - Install flask by doing `pip install flask`
+  - Run the app by doing `python db_iface.py`
