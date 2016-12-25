@@ -29,6 +29,7 @@
 			<th>First name</th>
 			<th>Last name</th>
 			<th>Username</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,6 +39,11 @@
       <td>{{ d.data['first_name'] }}</td>
       <td>{{ d.data['last_name'] }}</td>
       <td>{{ d.data['username'] }}</td>
+      <td>
+        <a href="{{ url_for('show_driver', username=d.data['username']) }}" class="btn btn-default">Show</a>
+        <a href="#" class="btn btn-default">Edit</a>
+        <a href="#" class="btn btn-default">Delete</a>
+      </td>
 		</tr>
     {% endfor %}
 	</tbody>

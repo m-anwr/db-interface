@@ -19,7 +19,7 @@ def _collection(model_class):
     collection = []
     filters = request.args.to_dict(flat=True)
     filters = {k: v for k, v in filters.items() if v != ''}
-    print(filters)
+
     if filters:
         collection = model_class.where(filters)
     else:
@@ -41,6 +41,15 @@ def new_driver():
         d.save()
         return redirect(url_for('drivers'))
     return render_template('drivers/new.html')
+
+
+@app.route('/drivers/<username>')
+def show_driver(username):
+    driver = Driver.find('username', username)
+    if driver is not None:
+        return render_template("drivers/show.html", driver=driver)
+    else:
+        return page_not_found(None)
 
 
 @app.route('/streets')

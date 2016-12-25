@@ -16,6 +16,30 @@ class Model(ABC):
         return list(map(lambda x: x[0], cursor.description))
 
     @classmethod
+    def find(cls, column, value):
+        col_names = cls.table_columns()
+
+        if column not in col_names:
+            return None
+
+        cursor = conn.execute(
+            "SELECT * FROM {} WHERE {} = ? LIMIT 1".format(
+                cls.table_name(),
+                column
+            ), [value])
+
+        row = cursor.fetchone()
+
+        if row is None:
+            return None
+
+        data = {}
+        for info in zip(col_names, row):
+            data[info[0]] = info[1]
+
+        return cls(data)
+
+    @classmethod
     def _construct_objects_from_cursor(cls, cursor):
         col_names = cls.table_columns()
         objects = []

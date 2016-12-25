@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <td>{{ driver.data['first_name'] }} {{ driver.data['last_name'] }}</td>
+  </tr>
+  <tr>
+    <th>Username</th>
+    <td>{{ driver.data['username'] }}</td>
+  </tr>
+  <tr>
+    <th>National ID</th>
+    <td>{{ driver.data['national_id'] }}</td>
+  </tr>
+</table>
+{% endblock %}
