@@ -5,6 +5,7 @@ from trafficlight import Trafficlight
 from intersection import Intersection
 import db_init
 
+
 app = Flask(__name__)
 db_init.init()
 
@@ -14,9 +15,23 @@ def index():
     return render_template("index.html")
 
 
+def _collection(model_class):
+    collection = []
+    filters = request.args.to_dict(flat=True)
+    filters = {k: v for k, v in filters.items() if v != ''}
+    print(filters)
+    if filters:
+        collection = model_class.where(filters)
+    else:
+        collection = model_class.all()
+
+    return collection
+
+
 @app.route('/drivers')
 def drivers():
-    return render_template("drivers/index.html", drivers=Driver.all())
+    collection = _collection(Driver)
+    return render_template("drivers/index.html", drivers=collection)
 
 
 @app.route('/drivers/new', methods=['GET', 'POST'])
@@ -27,9 +42,11 @@ def new_driver():
         return redirect(url_for('drivers'))
     return render_template('drivers/new.html')
 
+
 @app.route('/streets')
 def streets():
-    return render_template("streets/index.html", streets=Street.all())
+    collection = _collection(Street)
+    return render_template("streets/index.html", streets=collection)
 
 
 @app.route('/streets/new', methods=['GET', 'POST'])
@@ -40,9 +57,14 @@ def new_street():
         return redirect(url_for('streets'))
     return render_template('streets/new.html')
 
+
 @app.route('/trafficlights')
 def trafficlights():
-    return render_template("trafficlights/index.html", traffic_lights=Trafficlight.all())
+    collection = _collection(Trafficlight)
+    return render_template(
+        "trafficlights/index.html",
+        traffic_lights=collection
+    )
 
 
 @app.route('/trafficlights/new', methods=['GET', 'POST'])
@@ -53,9 +75,11 @@ def new_trafficlight():
         return redirect(url_for('trafficlights'))
     return render_template('trafficlights/new.html')
 
+
 @app.route('/intersections')
 def intersections():
-    return render_template("intersections/index.html", intersections=Intersection.all())
+    collection = _collection(Intersection)
+    return render_template("intersections/index.html", intersections=collection)
 
 
 @app.route('/intersections/new', methods=['GET', 'POST'])

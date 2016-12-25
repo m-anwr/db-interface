@@ -1,7 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Drivers</h1>
+
+<div class="container filter-form">
+  <form class="form-inline" method="get">
+    <div class="form-group">
+      <input type="text" name="national_id" class="form-control" placeholder="National ID" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="first_name" class="form-control" placeholder="First Name" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="last_name" class="form-control" placeholder="Last Name" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="username" class="form-control" placeholder="Username" />
+    </div>
+    <button type="submit" class="btn btn-default">Filter</button>
+  </form>
+</div>
+
 <a href="{{ url_for('new_driver') }}" class="btn btn-default">Add New Driver</a>
+
 <table class="table">
 	<thead>
 		<tr>
@@ -22,5 +42,7 @@
     {% endfor %}
 	</tbody>
 </table>
+
 <a href="{{ url_for('new_driver') }}" class="btn btn-default">Add New Driver</a>
+
 {% endblock %}
