@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Streets</h1>
+<a href="{{ url_for('new_street') }}" class="btn btn-default">Add New Street</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Start Longitude</th>
+			<th>End Longitude</th>
+			<th>Start Latitude</th>
+			<th>End Latitude</th>
+		</tr>
+	</thead>
+	<tbody>
+    {% for d in streets %}
+		<tr>
+      <td>{{ d.data['id'] }}</td>
+      <td>{{ d.data['start_longitude'] }}</td>
+      <td>{{ d.data['end_longitude'] }}</td>
+      <td>{{ d.data['start_latitude'] }}</td>
+      <td>{{ d.data['end_latitude'] }}</td>
+		</tr>
+    {% endfor %}
+	</tbody>
+</table>
+<a href="{{ url_for('new_street') }}" class="btn btn-default">Add New Street</a>
+{% endblock %}

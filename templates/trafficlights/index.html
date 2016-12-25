@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Trafficlights</h1>
+<a href="{{ url_for('new_trafficlight') }}" class="btn btn-default">Add New Trafficlight</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Longitude</th>
+			<th>Latitude</th>
+			<th>Direction</th>
+			<th>Intersection MAC</th>
+		</tr>
+	</thead>
+	<tbody>
+    {% for d in traffic_lights %}
+		<tr>
+      <td>{{ d.data['id'] }}</td>
+      <td>{{ d.data['longitude'] }}</td>
+      <td>{{ d.data['longitude'] }}</td>
+      <td>{{ d.data['direction'] }}</td>
+      <td>{{ d.data['intersection_mac'] }}</td>
+		</tr>
+    {% endfor %}
+	</tbody>
+</table>
+<a href="{{ url_for('new_trafficlight') }}" class="btn btn-default">Add New Trafficlight</a>
+{% endblock %}
