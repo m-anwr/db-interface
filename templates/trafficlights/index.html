@@ -1,6 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Trafficlights</h1>
+
+<div class="container filter-form">
+  <form class="form-inline" method="get">
+    <div class="form-group">
+      <input type="text" name="id" class="form-control" placeholder="ID" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="longitude" class="form-control" placeholder="Longitude" />
+    </div>
+	<div class="form-group">
+      <input type="text" name="latitude" class="form-control" placeholder="Latitude" />
+    </div>
+	<div class="form-group">
+      <input type="text" name="direction" class="form-control" placeholder="Direction" />
+    </div>
+	<div class="form-group">
+      <input type="text" name="intersection_mac" class="form-control" placeholder="Intersection MAC" />
+    </div>
+    <button type="submit" class="btn btn-default">Filter</button>
+  </form>
+</div>
+
+
 <a href="{{ url_for('new_trafficlight') }}" class="btn btn-default">Add New Trafficlight</a>
 <table class="table">
 	<thead>
@@ -17,7 +40,7 @@
 		<tr>
       <td>{{ d.data['id'] }}</td>
       <td>{{ d.data['longitude'] }}</td>
-      <td>{{ d.data['longitude'] }}</td>
+      <td>{{ d.data['latitude'] }}</td>
       <td>{{ d.data['direction'] }}</td>
       <td>{{ d.data['intersection_mac'] }}</td>
 		</tr>
