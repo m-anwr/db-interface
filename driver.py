@@ -16,3 +16,7 @@ class Driver(Model):
     @classmethod
     def table_name(cls):
         return 'drivers'
+
+    @classmethod
+    def table_primary_key(cls):
+        return 'national_id'

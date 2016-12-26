@@ -52,9 +52,24 @@ def show_driver(username):
         return page_not_found(None)
 
 
+@app.route('/drivers/<username>/edit', methods=['GET', 'POST'])
+def edit_driver(username):
+    driver = Driver.find('username', username)
+    if request.method == 'POST':
+        form_data = request.form.to_dict(flat=True)
+        form_data = {k: v for k, v in form_data.items() if driver.data[k] != v}
+        driver.update(form_data)
+        return redirect(
+            url_for('show_driver', username=driver.data['username'])
+        )
+    else:
+        return render_template('drivers/edit.html', driver=driver)
+
+
 @app.route('/drivers/<username>/delete')
 def delete_driver(username):
-    Driver.delete('username', username)
+    driver = Driver.find('username', username)
+    driver.delete()
     return redirect(url_for('drivers'))
 
 

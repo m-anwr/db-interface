@@ -14,4 +14,6 @@
     <td>{{ driver.data['national_id'] }}</td>
   </tr>
 </table>
+<a href="{{ url_for('edit_driver', username=driver.data['username']) }}" class="btn btn-default">Edit</a>
+<a href="{{ url_for('delete_driver', username=driver.data['username']) }}" class="btn btn-default">Delete</a>
 {% endblock %}

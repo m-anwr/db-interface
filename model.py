@@ -10,6 +10,10 @@ class Model(ABC):
     def table_name(cls):
         pass
 
+    @abstractclassmethod
+    def table_primary_key(cls):
+        pass
+
     @classmethod
     def table_columns(cls):
         cursor = conn.execute("SELECT * FROM {};".format(cls.table_name()))
@@ -75,18 +79,12 @@ class Model(ABC):
 
         return cls._construct_objects_from_cursor(cursor)
 
-    @classmethod
-    def delete(cls, column, value):
-        obj = cls.find(column, value)
-
-        if obj is None:
-            return False
-
+    def delete(self):
         conn.execute(
             "DELETE FROM {} WHERE {} = ?".format(
-                cls.table_name(),
-                column
-            ), [value])
+                self.table_name(),
+                self.table_primary_key()
+            ), [self.data[self.table_primary_key()]])
 
         conn.commit()
 
@@ -94,7 +92,7 @@ class Model(ABC):
 
     def save(self):
         if not self.data:
-            return
+            return False
 
         cols = list(self.data.keys())
         vals = tuple(self.data.values())
@@ -104,3 +102,29 @@ class Model(ABC):
         ), vals)
 
         conn.commit()
+
+        return True
+
+    def update(self, update_data={}):
+        if not update_data:
+            return False
+
+        cols = list(update_data.keys())
+        vals = list(update_data.values())
+
+        set_format = ", ".join(
+            list(map(lambda x: "{} = ?".format(x), cols))
+        )
+
+        conn.execute("UPDATE {} SET {} WHERE {} = {}".format(
+            self.table_name(),
+            set_format,
+            self.table_primary_key(),
+            self.data[self.table_primary_key()]
+        ), vals)
+
+        conn.commit()
+
+        self.data.update(update_data)
+
+        return True
