@@ -77,10 +77,10 @@ class Model(ABC):
 
     @classmethod
     def delete(cls, column, value):
-        col_names = cls.table_columns()
+        obj = cls.find(column, value)
 
-        if column not in col_names:
-            return
+        if obj is None:
+            return False
 
         conn.execute(
             "DELETE FROM {} WHERE {} = ?".format(
@@ -89,6 +89,8 @@ class Model(ABC):
             ), [value])
 
         conn.commit()
+
+        return True
 
     def save(self):
         if not self.data:

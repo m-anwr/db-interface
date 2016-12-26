@@ -52,10 +52,10 @@ def show_driver(username):
         return page_not_found(None)
 
 
-@app.route('/drivers/delete/<username>')
+@app.route('/drivers/<username>/delete')
 def delete_driver(username):
     Driver.delete('username', username)
-    return render_template("drivers/delete.html")
+    return redirect(url_for('drivers'))
 
 
 @app.route('/streets')
