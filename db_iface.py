@@ -4,7 +4,9 @@ from street import Street
 from trafficlight import Trafficlight
 from intersection import Intersection
 from emergencyvehicle import EmergencyVehicle
+from uses import Uses
 import db_init
+import datetime
 
 
 app = Flask(__name__)
@@ -50,8 +52,29 @@ def new_driver():
 @app.route('/drivers/<username>')
 def show_driver(username):
     driver = Driver.find('username', username)
+
+    associated_vehicles = EmergencyVehicle.join(
+        driver,
+        'uses',
+        'emergency_vehicle_id',
+        'driver_national_id'
+    )
+
+    associated_vehicles_ids = [v.data['id'] for v in associated_vehicles]
+    rest_of_evs = list(
+        filter(
+            lambda x: x.data['id'] not in associated_vehicles_ids,
+            EmergencyVehicle.all()
+        )
+    )
+
     if driver is not None:
-        return render_template("drivers/show.html", driver=driver)
+        return render_template(
+            "drivers/show.html",
+            driver=driver,
+            associated_vehicles=associated_vehicles,
+            rest_of_evs=rest_of_evs
+        )
     else:
         return page_not_found(None)
 
@@ -68,6 +91,15 @@ def edit_driver(username):
         )
     else:
         return render_template('drivers/edit.html', driver=driver)
+
+
+@app.route('/drivers/<username>/assign_to_vehicle', methods=['POST'])
+def assign_driver_to_vehicle(username):
+    form_data = request.form.to_dict(flat=True)
+    form_data['date'] = str(datetime.date.today())
+    u = Uses(form_data)
+    u.save()
+    return redirect(url_for('show_driver', username=username))
 
 
 @app.route('/drivers/<username>/delete')

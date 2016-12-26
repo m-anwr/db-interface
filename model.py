@@ -20,6 +20,19 @@ class Model(ABC):
         return list(map(lambda x: x[0], cursor.description))
 
     @classmethod
+    def join(cls, other_instance, through_table, cls_fk, instance_fk):
+        cursor = conn.execute(
+            "SELECT * FROM {} JOIN {} ON {} = {} WHERE {} = ?".format(
+                cls.table_name(),
+                through_table,
+                cls.table_name() + "." + cls.table_primary_key(),
+                through_table + "." + cls_fk,
+                through_table + "." + instance_fk
+            ), [other_instance.data[other_instance.table_primary_key()]])
+
+        return cls._construct_objects_from_cursor(cursor)
+
+    @classmethod
     def find(cls, column, value):
         col_names = cls.table_columns()
 
@@ -86,19 +99,19 @@ class Model(ABC):
 
         keys = list(filters.keys())
         vals = list(filters.values())
-        
+
         where_format = ""
         for key in keys:
             if key[0] == "t":
-                key=key[2:]
-                where_format+="AND "+key+"<=? "
+                key = key[2:]
+                where_format += "AND " + key + "<=? "
             elif key[0] == "f":
-                key=key[2:]
-                where_format+="AND "+key+">=? "
+                key = key[2:]
+                where_format += "AND " + key + ">=? "
             else:
-                where_format+="AND "+key+"=? "
+                where_format += "AND " + key + "=? "
 
-        where_format=where_format[3:]
+        where_format = where_format[3:]
 
         cursor = conn.execute("SELECT * FROM {} WHERE {};".format(
             cls.table_name(),
