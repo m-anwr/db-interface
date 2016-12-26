@@ -62,6 +62,11 @@
       <td>{{ d.data['end_longitude'] }}</td>
       <td>{{ d.data['start_latitude'] }}</td>
       <td>{{ d.data['end_latitude'] }}</td>
+      <td>
+        <a href="{{ url_for('show_street', id=d.data['id']) }}" class="btn btn-default">Show</a>
+        <a href="{{ url_for('edit_street', id=d.data['id']) }}" class="btn btn-default">Edit</a>
+        <a href="{{ url_for('delete_street', id=d.data['id']) }}" class="btn btn-default">Delete</a>
+      </td>
 		</tr>
     {% endfor %}
 	</tbody>

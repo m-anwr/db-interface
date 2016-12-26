@@ -91,6 +91,35 @@ def new_street():
         return redirect(url_for('streets'))
     return render_template('streets/new.html')
 
+@app.route('/streets/<id>')
+def show_street(id):
+    street = Street.find('id', id)
+    if street is not None:
+        return render_template("streets/show.html", street=street)
+    else:
+        return page_not_found(None)
+
+
+@app.route('/streets/<id>/edit', methods=['GET', 'POST'])
+def edit_street(id):
+    street = Street.find('id', id)
+    if request.method == 'POST':
+        form_data = request.form.to_dict(flat=True)
+        form_data = {k: v for k, v in form_data.items() if street.data[k] != v}
+        street.update(form_data)
+        return redirect(
+            url_for('show_street', id=street.data['id'])
+        )
+    else:
+        return render_template('streets/edit.html', street=street)
+
+
+@app.route('/streets/<id>/delete')
+def delete_street(id):
+    street = Street.find('id', id)
+    street.delete()
+    return redirect(url_for('streets'))
+
 
 @app.route('/trafficlights')
 def trafficlights():
