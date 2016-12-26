@@ -2,25 +2,25 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">Start Longitude:</label>
 		<div class="col-sm-10">
-			<input name="start_longitude" type="text" class="form-control" placeholder="Enter Start Longitude" required>
+			<input name="start_longitude" value="{{ street.data['start_longitude'] if street is defined else '' }}" type="text" class="form-control" placeholder="Enter Start Longitude" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">End Longitude:</label>
 		<div class="col-sm-10">
-			<input name="end_longitude" type="text" class="form-control" placeholder="Enter End Longitude" required>
+			<input name="end_longitude" value="{{ street.data['end_longitude'] if street is defined else '' }}" type="text" class="form-control" placeholder="Enter End Longitude" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">Start Latitude:</label>
 		<div class="col-sm-10">
-			<input name="start_latitude" type="text" class="form-control" placeholder="Enter Start Latitude" required>
+			<input name="start_latitude" value="{{ street.data['start_latitude'] if street is defined else '' }}" type="text" class="form-control" placeholder="Enter Start Latitude" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">End Latitude:</label>
 		<div class="col-sm-10">
-			<input name="end_latitude" type="text" class="form-control" placeholder="Enter End Latitude" required>
+			<input name="end_latitude" value="{{ street.data['end_latitude'] if street is defined else '' }}" type="text" class="form-control" placeholder="Enter End Latitude" required>
 		</div>
 	</div>
 	<div class="form-group">

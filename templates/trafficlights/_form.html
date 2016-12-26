@@ -2,25 +2,25 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="email">Direction:</label>
 		<div class="col-sm-10">
-			<input name="direction" type="text" class="form-control" placeholder="Enter Direction" required>
+			<input name="direction" value="{{ trafficlight.data['direction'] if trafficlight is defined else '' }}" type="text" class="form-control" placeholder="Enter Direction" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">Intersection MAC:</label>
 		<div class="col-sm-10">
-			<input name="intersection_mac" type="text" class="form-control" placeholder="Enter Intersection MAC" required>
+			<input name="intersection_mac" value="{{ trafficlight.data['intersection_mac'] if trafficlight is defined else '' }}" type="text" class="form-control" placeholder="Enter Intersection MAC" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">Longitude:</label>
 		<div class="col-sm-10">
-			<input name="longitude" type="text" class="form-control" placeholder="Enter Longitude" required>
+			<input name="longitude" value="{{ trafficlight.data['longitude'] if trafficlight is defined else '' }}" type="text" class="form-control" placeholder="Enter Longitude" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">Latitude:</label>
 		<div class="col-sm-10">
-			<input name="latitude" type="text" class="form-control" placeholder="Enter Latitude" required>
+			<input name="latitude" value="{{ trafficlight.data['latitude'] if trafficlight is defined else '' }}" type="text" class="form-control" placeholder="Enter Latitude" required>
 		</div>
 	</div>
 	<div class="form-group">

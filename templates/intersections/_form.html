@@ -2,13 +2,13 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="email">mac:</label>
 		<div class="col-sm-10">
-			<input name="mac" type="text" class="form-control" placeholder="Enter mac" required>
+			<input name="mac" value="{{ intersection.data['mac'] if intersection is defined else '' }}" type="text" class="form-control" placeholder="Enter mac" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="pwd">ip:</label>
 		<div class="col-sm-10">
-			<input name="ip" type="text" class="form-control" placeholder="Enter ip" required>
+			<input name="ip" value="{{ intersection.data['ip'] if intersection is defined else '' }}" type="text" class="form-control" placeholder="Enter ip" required>
 		</div>
 	</div>
 	<div class="form-group">
