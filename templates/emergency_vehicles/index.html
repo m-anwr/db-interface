@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Emergency Vehicles</h1>
+<a href="{{ url_for('new_emergency_vehicle') }}" class="btn btn-default">Add New Emergency Vehicle</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Priority</th>
+		</tr>
+	</thead>
+	<tbody>
+    {% for d in emergency_vehicles %}
+		<tr>
+      <td>{{ d.data['id'] }}</td>
+      <td>{{ d.data['priority'] }}</td>
+		</tr>
+    {% endfor %}
+	</tbody>
+</table>
+<a href="{{ url_for('new_emergency_vehicle') }}" class="btn btn-default">Add New Emergency Vehicle</a>
+{% endblock %}

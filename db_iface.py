@@ -3,6 +3,7 @@ from driver import Driver
 from street import Street
 from trafficlight import Trafficlight
 from intersection import Intersection
+from emergencyvehicle import EmergencyVehicle
 import db_init
 
 
@@ -119,6 +120,21 @@ def new_intersection():
         d.save()
         return redirect(url_for('intersections'))
     return render_template('intersections/new.html')
+
+
+@app.route('/emergency_vehicles')
+def emergency_vehicles():
+    collection = _collection(EmergencyVehicle)
+    return render_template("emergency_vehicles/index.html", emergency_vehicles=collection)
+
+
+@app.route('/emergency_vehicles/new', methods=['GET', 'POST'])
+def new_emergency_vehicle():
+    if request.method == 'POST':
+        d = EmergencyVehicle(request.form.to_dict(flat=True))
+        d.save()
+        return redirect(url_for('emergency_vehicles'))
+    return render_template('emergency_vehicles/new.html')
 
 
 @app.errorhandler(404)
