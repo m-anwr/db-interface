@@ -138,6 +138,35 @@ def new_trafficlight():
         return redirect(url_for('trafficlights'))
     return render_template('trafficlights/new.html')
 
+@app.route('/trafficlights/<id>')
+def show_trafficlight(id):
+    trafficlight = Trafficlight.find('id', id)
+    if trafficlight is not None:
+        return render_template("trafficlights/show.html", trafficlight=trafficlight)
+    else:
+        return page_not_found(None)
+
+
+@app.route('/trafficlights/<id>/edit', methods=['GET', 'POST'])
+def edit_trafficlight(id):
+    trafficlight = Trafficlight.find('id', id)
+    if request.method == 'POST':
+        form_data = request.form.to_dict(flat=True)
+        form_data = {k: v for k, v in form_data.items() if trafficlight.data[k] != v}
+        trafficlight.update(form_data)
+        return redirect(
+            url_for('show_trafficlight', id=trafficlight.data['id'])
+        )
+    else:
+        return render_template('trafficlights/edit.html', trafficlight=trafficlight)
+
+
+@app.route('/trafficlights/<id>/delete')
+def delete_trafficlight(id):
+    trafficlight = Trafficlight.find('id', id)
+    trafficlight.delete()
+    return redirect(url_for('trafficlights'))
+
 
 @app.route('/intersections')
 def intersections():

@@ -43,6 +43,11 @@
       <td>{{ d.data['latitude'] }}</td>
       <td>{{ d.data['direction'] }}</td>
       <td>{{ d.data['intersection_mac'] }}</td>
+      <td>
+        <a href="{{ url_for('show_trafficlight', id=d.data['id']) }}" class="btn btn-default">Show</a>
+        <a href="{{ url_for('edit_trafficlight', id=d.data['id']) }}" class="btn btn-default">Edit</a>
+        <a href="{{ url_for('delete_trafficlight', id=d.data['id']) }}" class="btn btn-default">Delete</a>
+      </td>
 		</tr>
     {% endfor %}
 	</tbody>

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <td>{{ trafficlight.data['id'] }}</td>
+  </tr>
+  <tr>
+    <th>longitude</th>
+    <td>{{ trafficlight.data['longitude'] }}</td>
+  </tr>
+  <tr>
+    <th>latitude</th>
+    <td>{{ trafficlight.data['latitude'] }}</td>
+  </tr>
+  <tr>
+    <th>Direction</th>
+    <td>{{ trafficlight.data['direction'] }}</td>
+  </tr>
+  <tr>
+    <th>intersection mac</th>
+    <td>{{ trafficlight.data['intersection_mac'] }}</td>
+  </tr>
+</table>
+<a href="{{ url_for('edit_trafficlight', id=trafficlight.data['id']) }}" class="btn btn-default">Edit</a>
+<a href="{{ url_for('delete_trafficlight', id=trafficlight.data['id']) }}" class="btn btn-default">Delete</a>
+{% endblock %}
