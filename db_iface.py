@@ -183,6 +183,36 @@ def new_intersection():
     return render_template('intersections/new.html')
 
 
+@app.route('/intersections/<mac>')
+def show_intersection(mac):
+    intersection = Intersection.find('mac', mac)
+    if intersection is not None:
+        return render_template("intersections/show.html", intersection=intersection)
+    else:
+        return page_not_found(None)
+
+
+@app.route('/intersections/<mac>/edit', methods=['GET', 'POST'])
+def edit_intersection(mac):
+    intersection = Intersection.find('mac', mac)
+    if request.method == 'POST':
+        form_data = request.form.to_dict(flat=True)
+        form_data = {k: v for k, v in form_data.items() if intersection.data[k] != v}
+        intersection.update(form_data)
+        return redirect(
+            url_for('show_intersection', mac=intersection.data['mac'])
+        )
+    else:
+        return render_template('intersections/edit.html', intersection=intersection)
+
+
+@app.route('/intersections/<mac>/delete')
+def delete_intersection(mac):
+    intersection = Intersection.find('mac', mac)
+    intersection.delete() 
+    return redirect(url_for('intersections'))
+
+
 @app.route('/emergency_vehicles')
 def emergency_vehicles():
     collection = _collection(EmergencyVehicle)
