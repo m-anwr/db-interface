@@ -5,10 +5,10 @@ conn = sqlite3.connect(r"db_project.db")
 
 def init():
     conn.execute('''CREATE TABLE IF NOT EXISTS traffic_lights
-                    (id INT AUTO_INCREMENT PRIMARY KEY,
-                    longitude        REAL NOT NULL DEFAULT 0,
-                    latitude         REAL NOT NULL DEFAULT 0,
-                    direction        INT  NOT NULL DEFAULT 0,
+                    (id               INTEGER PRIMARY KEY AUTOINCREMENT,
+                    longitude            REAL NOT NULL DEFAULT 0,
+                    latitude             REAL NOT NULL DEFAULT 0,
+                    direction             INT NOT NULL DEFAULT 0,
                     intersection_mac CHAR(17) NOT NULL,
                     FOREIGN KEY (intersection_mac) REFERENCES intersections (mac));''')
 
@@ -20,11 +20,11 @@ def init():
                     ip CHAR(15));''')
 
     conn.execute('''CREATE TABLE IF NOT EXISTS streets
-                    (id              INT AUTO_INCREMENT PRIMARY KEY,
-                    start_longitude REAL NOT NULL DEFAULT 0,
-                    end_longitude   REAL NOT NULL DEFAULT 0,
-                    start_latitude  REAL NOT NULL DEFAULT 0,
-                    end_latitude    REAL NOT NULL DEFAULT 0);''')
+                    (id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                    start_longitude    REAL NOT NULL DEFAULT 0,
+                    end_longitude      REAL NOT NULL DEFAULT 0,
+                    start_latitude     REAL NOT NULL DEFAULT 0,
+                    end_latitude       REAL NOT NULL DEFAULT 0);''')
 
     conn.execute('''CREATE TABLE IF NOT EXISTS drivers
                     (national_id        CHAR(14) NOT NULL PRIMARY KEY,
@@ -40,8 +40,8 @@ def init():
                     ON drivers (username);''')
 
     conn.execute('''CREATE TABLE IF NOT EXISTS emergency_vehicles
-                    (id       INT AUTO_INCREMENT PRIMARY KEY,
-                    priority INT NOT NULL DEFAULT 0);''')
+                    (id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                    priority      INT NOT NULL DEFAULT 0);''')
 
     conn.execute('''CREATE TABLE IF NOT EXISTS intersections_streets
                     (intersection_mac CHAR(17) NOT NULL,
