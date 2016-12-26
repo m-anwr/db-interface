@@ -75,6 +75,21 @@ class Model(ABC):
 
         return cls._construct_objects_from_cursor(cursor)
 
+    @classmethod
+    def delete(cls, column, value):
+        col_names = cls.table_columns()
+
+        if column not in col_names:
+            return
+
+        conn.execute(
+            "DELETE FROM {} WHERE {} = ?".format(
+                cls.table_name(),
+                column
+            ), [value])
+
+        conn.commit()
+
     def save(self):
         if not self.data:
             return

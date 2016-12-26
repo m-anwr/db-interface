@@ -52,6 +52,12 @@ def show_driver(username):
         return page_not_found(None)
 
 
+@app.route('/drivers/delete/<username>')
+def delete_driver(username):
+    Driver.delete('username', username)
+    return render_template("drivers/delete.html")
+
+
 @app.route('/streets')
 def streets():
     collection = _collection(Street)
