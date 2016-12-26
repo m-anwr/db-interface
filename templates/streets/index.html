@@ -1,6 +1,60 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Streets</h1>
+
+<div class="container filter-form">
+  <form class="form-inline" method="get">
+    <p>Search for specific value</p>
+   <div class="form-group">
+      <input type="text" name="ID" class="form-control" placeholder="Street ID" />
+    </div>
+  <div class="form-group">
+      <input type="text" name="start_longitude" class="form-control" placeholder="Start Longitude " />
+    </div>
+  <div class="form-group">
+      <input type="text" name="end_longitude" class="form-control" placeholder="End Longitude " />
+    </div>
+  <div class="form-group">
+      <input type="text" name="start_latitude" class="form-control" placeholder="Start Latitude" />
+    </div>
+  <div class="form-group">
+      <input type="text" name="end_latitude" class="form-control" placeholder="End Latitude" />
+    </div>
+    <p>Search for ranges</p>
+	<div class="form-group">
+      <input type="text" name="f_start_longitude" class="form-control" placeholder="Start Longitude From" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="t_start_longitude" class="form-control" placeholder="Start Longitude To" />
+    </div>
+  <p>
+	<div class="form-group">
+      <input type="text" name="f_end_longitude" class="form-control" placeholder="End Longitude From" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="t_end_longitude" class="form-control" placeholder="End Longitude To" />
+    </div>
+  </p>
+  <p>
+	<div class="form-group">
+      <input type="text" name="f_start_latitude" class="form-control" placeholder="Start Latitude From" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="t_start_latitude" class="form-control" placeholder="Start Latitude To" />
+    </div>
+  </p>
+  <p>
+	<div class="form-group">
+      <input type="text" name="f_end_latitude" class="form-control" placeholder="End Latitude From" />
+    </div>	
+    <div class="form-group">
+      <input type="text" name="t_end_latitude" class="form-control" placeholder="End Latitude To" />
+    </div>  
+    </p>
+    <button type="submit" class="btn btn-default">Filter</button>
+  </form>
+</div>
+
 <a href="{{ url_for('new_street') }}" class="btn btn-default">Add New Street</a>
 <table class="table">
 	<thead>

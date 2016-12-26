@@ -22,7 +22,10 @@ def _collection(model_class):
     filters = {k: v for k, v in filters.items() if v != ''}
 
     if filters:
-        collection = model_class.where(filters)
+        if model_class.__name__ == "Street":
+            collection = model_class.where_range(filters)
+        else:
+            collection = model_class.where(filters)
     else:
         collection = model_class.all()
 
