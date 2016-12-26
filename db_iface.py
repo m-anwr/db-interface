@@ -139,6 +139,35 @@ def new_emergency_vehicle():
         return redirect(url_for('emergency_vehicles'))
     return render_template('emergency_vehicles/new.html')
 
+@app.route('/emergency_vehicles/<id>')
+def show_emergency_vehicle(id):
+    emergency_vehicle = EmergencyVehicle.find('id', id)
+    if emergency_vehicle is not None:
+        return render_template("emergency_vehicles/show.html", emergency_vehicle=emergency_vehicle)
+    else:
+        return page_not_found(None)
+
+
+@app.route('/emergency_vehicles/<id>/edit', methods=['GET', 'POST'])
+def edit_emergency_vehicle(id):
+    emergency_vehicle = EmergencyVehicle.find('id', id)
+    if request.method == 'POST':
+        form_data = request.form.to_dict(flat=True)
+        form_data = {k: v for k, v in form_data.items() if emergency_vehicle.data[k] != v}
+        emergency_vehicle.update(form_data)
+        return redirect(
+            url_for('show_emergency_vehicle', id=emergency_vehicle.data['id'])
+        )
+    else:
+        return render_template('emergency_vehicles/edit.html', emergency_vehicle=emergency_vehicle)
+
+
+@app.route('/emergency_vehicles/<id>/delete')
+def delete_emergency_vehicle(id):
+    emergency_vehicle = EmergencyVehicle.find('id', id)
+    emergency_vehicle.delete()
+    return redirect(url_for('emergency_vehicles'))
+
 
 @app.errorhandler(404)
 def page_not_found(e):

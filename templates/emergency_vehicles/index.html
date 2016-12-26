@@ -27,6 +27,11 @@
 		<tr>
       <td>{{ d.data['id'] }}</td>
       <td>{{ d.data['priority'] }}</td>
+      <td>
+        <a href="{{ url_for('show_emergency_vehicle', id=d.data['id']) }}" class="btn btn-default">Show</a>
+        <a href="{{ url_for('edit_emergency_vehicle', id=d.data['id']) }}" class="btn btn-default">Edit</a>
+        <a href="{{ url_for('delete_emergency_vehicle', id=d.data['id']) }}" class="btn btn-default">Delete</a>
+      </td>
 		</tr>
     {% endfor %}
 	</tbody>

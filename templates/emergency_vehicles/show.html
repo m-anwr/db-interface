@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <td>{{ emergency_vehicle.data['id'] }}</td>
+  </tr>
+  <tr>
+    <th>Priority</th>
+    <td>{{ emergency_vehicle.data['priority'] }}</td>
+  </tr>
+</table>
+<a href="{{ url_for('edit_emergency_vehicle', id=emergency_vehicle.data['id']) }}" class="btn btn-default">Edit</a>
+<a href="{{ url_for('delete_emergency_vehicle', id=emergency_vehicle.data['id']) }}" class="btn btn-default">Delete</a>
+{% endblock %}
